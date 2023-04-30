@@ -23,7 +23,16 @@ try {
   console.log(`Database can't be connected: ${err}`);
 }
 
+//Skipping auth for routes that are in noAuthRoutes file
+auth.authenticateToken.unless = unless;
+app.use(
+  auth.authenticateToken.unless({
+    path: noAuthRoutes
+  })
+);
+
 // initialize routes
+app.use("/api/user", require("./routes/user.routes"));
 
 // middleware for error responses
 //default error handler
