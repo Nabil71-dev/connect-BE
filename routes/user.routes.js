@@ -9,5 +9,6 @@ routes.put('/profile',userController.updateUserProfile);
 routes.post('/reset-pass-req',userController.resetPassRequest);
 routes.post('/set-pass',userController.resetPass);
 routes.get('/refresh/token',userController.refreshToken);
+routes.get('/:userID',userController.getSpecificUserProfile);
 
 module.exports=routes;

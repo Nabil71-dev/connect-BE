@@ -72,6 +72,26 @@ exports.getUserProfile = async (req, res) => {
     });
 }
 
+exports.getSpecificUserProfile = async (req, res) => {
+    const user = await User.findOne({ email: req.email, status: true });
+    if (!user) {
+        return res.status(404).send({
+            message: 'No user found'
+        })
+    }
+
+    const req_user = await User.findOne({ userID: req.params.userID });
+    if (!req_user) {
+        return res.status(404).send({
+            message: 'No user found'
+        })
+    }
+    return res.status(200).send({
+        message: "User found!",
+        data: req_user
+    });
+}
+
 exports.updateUserProfile = async (req, res) => {
     const { body } = req
     const data = await User.findOneAndUpdate({ email: req.email, status: true }, {
@@ -133,7 +153,6 @@ exports.resetPass = async (req, res) => {
         });
     }
 }
-
 
 exports.refreshToken = async (req, res) => {
     const user = await User.findOne({ email: req.email, status: true });
