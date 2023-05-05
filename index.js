@@ -14,8 +14,9 @@ app.use(cors());
 app.use(bodyParser.json({ limit: 1024 * 1024 * 10 }));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-// DATABASE CONNECTION
 
+
+// DATABASE CONNECTION
 try {
   mongoose.connect(DbConfig.db, { useNewUrlParser: true, useUnifiedTopology: true, })
   console.log("Success");
@@ -33,6 +34,7 @@ app.use(
 
 // initialize routes
 app.use("/api/user", require("./routes/user.routes"));
+app.use("/api/post", require("./routes/post.routes"));
 
 // middleware for error responses
 //default error handler
